@@ -28,6 +28,8 @@ const Article = mongoose.model("Article", articleSchema);
 
 //API
 
+
+
 app.get("/articles", (req, res) => {
     Article.find({}, function(err, foundArticles) {
         if (!err) {
@@ -47,6 +49,16 @@ app.post("/articles", (req, res) => {
     newArticle.save(function(err) {
         if (!err) {
             res.send("Successfully added new article.");
+        } else {
+            res.send(err);
+        }
+    });
+});
+
+app.delete("/articles", (req, res) => {
+    Article.deleteMany(function(err) {
+        if(!err) {
+            res.send("Successfullt deleted all articles.");
         } else {
             res.send(err);
         }
